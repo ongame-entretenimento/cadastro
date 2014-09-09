@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<html>
+<head>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/base.js"></script>
+</head>
+<body>
+<form name="cadastro" onsubmit="return false;">
+    {% csrf_token %}
+    <p>Usuário <br /><input type="text" name="usuario" /></p>
+    <p>Senha <br /><input type="password" name="senha" /></p>
+    <p>Confirmação da Senha <br /><input type="password" name="confirmacao_senha" /></p>
+    <p>E-mail <br /><input type="text" name="email" /></p>
+    <p>Confirmação do E-mail <br /><input type="text" name="confirmacao_email" /></p>
+    <p>
+        Data de Nascimento <br />
+        <input type="text" name="dia" />
+        <input type="text" name="mes" />
+        <input type="text" name="ano" />
+    </p>
+    <p>Sexo <br /><input type="text" name="sexo" /></p>
+    <p>Cidade <br /><input type="text" name="cidade" /></p>
+    <p><input type="submit" value="Enviar" onclick="Cadastro.cadastrar()" /></p>
+</form>
+</body>
+</html>
