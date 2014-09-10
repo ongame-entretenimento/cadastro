@@ -1,14 +1,5 @@
 Cadastro = {
     cadastrar: function() {
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    xhr.setRequestHeader("Ongame", "2014");
-                }
-            }
-        });
-
         $.ajax({
             url: "/cadastro/cadastrar/",
             type: "POST",

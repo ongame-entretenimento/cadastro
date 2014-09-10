@@ -14,7 +14,8 @@ def cadastro(request):
     return render_to_response('base.html', c)
 
 def cadastrar(request):
-    #import ipdb; ipdb.set_trace()
+    import ipdb; ipdb.set_trace()
+
     if not request.POST:
         raise Http404
 
@@ -65,7 +66,6 @@ def cadastrar(request):
     except:
         return HttpResponse('erro_cidade')
 
-    # Verifica se usuário existe, depois email, depois usuário pendente
     try:
         usuario_existe = Usuario.objects.get(usuario=usuario)
         return HttpResponse('usuario_existe')
@@ -77,12 +77,12 @@ def cadastrar(request):
 
         except:
             try:
-                usuario_existe = UsuarioPendente.objects.get(usuario=usuario)
+                usuario_pendente_existe = UsuarioPendente.objects.get(usuario=usuario)
                 return HttpResponse('usuario_existe')
 
             except:
                 try: 
-                    email_existe = UsuarioPendente.objects.get(email=email)
+                    email_pendente_existe = UsuarioPendente.objects.get(email=email)
                     return HttpResponse('email_existe')
 
                 except:
@@ -91,10 +91,14 @@ def cadastrar(request):
     try:
         usuarioPendente = UsuarioPendente()
 
+        dia = int(dia)
+        mes = int(mes)
+        ano = int(ano)
+
         usuarioPendente.usuario = usuario
         usuarioPendente.senha = hashlib.md5(senha).hexdigest()
         usuarioPendente.email = email
-        usuarioPendente.data_nascimento = datetime.datetime(int(ano), int(mes), int(dia))
+        usuarioPendente.data_nascimento = datetime.datetime(ano, mes, dia)
         usuarioPendente.sexo = sexo
         usuarioPendente.cidade = cidade
         usuarioPendente.data_cadastro = datetime.datetime.now()
@@ -102,6 +106,7 @@ def cadastrar(request):
         usuarioPendente.save()
 
         return HttpResponse('ok')
+
     except:
         return HttpResponse('erro_cadastro')
 
@@ -126,6 +131,6 @@ def ativar(request, codigo):
     usuario.save()
 
     usuarioPendente.delete()
-    
+
     return HttpResponse(codigo)
 
