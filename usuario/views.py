@@ -14,7 +14,7 @@ def cadastro(request):
     return render_to_response('base.html', c)
 
 def cadastrar(request):
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
 
     if not request.POST:
         raise Http404
